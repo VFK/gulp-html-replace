@@ -15,7 +15,7 @@ Blocks in your HTML file should look like this:
 ```html
 <!-- build:<name> -->
 ...
-<!-- /build -->
+<!-- endbuild -->
 ```
 
 **name** is the replacement task name.
@@ -29,7 +29,7 @@ htmlreplace('js', 'scripts/bundle.min.js')
 // single task with multiple files
 htmlreplace('css', ['normalize.css', 'main.css'])
 
-// multiple tasks with ridiculously long names
+// multiple tasks
 htmlreplace({
     'javascripts': 'bundle.js',
     'styles': ['style.css', 'new.css']

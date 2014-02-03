@@ -1,10 +1,14 @@
 {
     "name": "gulp-html-replace",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Replace build blocks in HTML with links to combined/compressed scripts or styles.",
     "keywords": [
         "gulpplugin"
     ],
+    "repository" :{
+        "type" : "git",
+        "url" : "https://github.com/VFK/gulp-html-replace.git"
+    },
     "author": {
         "name": "Vladimir Kucherenko",
         "email": "kvsoftware@gmail.com"

@@ -54,7 +54,7 @@ index.html:
     <!-- build:styles -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <!-- /build -->
+    <!-- endbuild -->
     .....
     </head>
     <body>

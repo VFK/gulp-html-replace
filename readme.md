@@ -75,8 +75,8 @@ var htmlreplace = require('gulp-html-replace');
 gulp.task('default', function() {
   gulp.src('index.html')
     .pipe(htmlreplace({
-        'styles': 'styles.min.css'
-        'js': 'js/bundle.min.js',
+        'styles': 'styles.min.css',
+        'js': 'js/bundle.min.js'
     }))
     .pipe(gulp.dest('build/'));
 });

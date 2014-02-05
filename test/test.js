@@ -99,4 +99,12 @@ describe('gulp-html-replace', function () {
         });
         compare('05.html', stream, done);
     });
+    
+    it('should accept hyphen', function (done) {
+        var stream = htmlreplace({
+            'css-hyphen': 'style.css',
+            'js-with-three-hyphens': 'main.js'
+        });
+        compare('06.html', stream, done);
+    });
 });

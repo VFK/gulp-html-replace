@@ -107,4 +107,18 @@ describe('gulp-html-replace', function () {
         });
         compare('06.html', stream, done);
     });
+
+    it('should work with custom templates', function (done) {
+        var stream = htmlreplace({
+            'css-template': {
+                'files': 'style.min.css',
+                'tpl': '<link href="%" rel="stylesheet">'
+            },
+            'js-template': {
+                'files': 'bundle.min.js',
+                'tpl': '<script src="%" async="true" />'
+            }
+        });
+        compare('07.html', stream, done);
+    });
 });

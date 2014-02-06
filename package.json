@@ -1,6 +1,6 @@
 {
     "name": "gulp-html-replace",
-    "version": "0.1.3",
+    "version": "0.2.0",
     "description": "Replace build blocks in HTML with links to combined/compressed scripts or styles.",
     "keywords": [
         "gulpplugin"

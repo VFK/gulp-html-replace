@@ -108,7 +108,7 @@ describe('gulp-html-replace', function () {
         compare('06.html', stream, done);
     });
 
-    it('should work with custom templates', function (done) {
+    it('should work with custom templates with multiple tasks', function (done) {
         var stream = htmlreplace({
             'css-template': {
                 'files': 'style.min.css',
@@ -120,5 +120,19 @@ describe('gulp-html-replace', function () {
             }
         });
         compare('07.html', stream, done);
+    });
+
+    it('should work with custom templates with single task', function (done) {
+        var stream = htmlreplace('js', 'scripts.all.js', '<script src="%s" data-custom-attribute="yep"/>');
+        compare('08.html', stream, done);
+    });
+
+    it('should replace text', function (done) {
+        var text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula, arcu rutrum faucibus ' +
+            'tempus, libero sem\ninterdum neque, quis scelerisque lacus libero vitae ligula. Quisque diam lacus, ' +
+            'placerat ut volutpat id, tristique a\nvelit. Pellentesque rhoncus quam a condimentum mollis.';
+
+        var stream = htmlreplace('text', text, '%s');
+        compare('09.html', stream, done);
     });
 });

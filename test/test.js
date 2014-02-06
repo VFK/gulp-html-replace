@@ -116,7 +116,7 @@ describe('gulp-html-replace', function () {
             },
             'js-template': {
                 'files': 'bundle.min.js',
-                'tpl': '<script src="%s" async="true" />'
+                'tpl': '<script src="%s" async="true"/>'
             }
         });
         compare('07.html', stream, done);

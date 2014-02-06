@@ -112,11 +112,11 @@ describe('gulp-html-replace', function () {
         var stream = htmlreplace({
             'css-template': {
                 'files': 'style.min.css',
-                'tpl': '<link href="%" rel="stylesheet">'
+                'tpl': '<link href="%s" rel="stylesheet">'
             },
             'js-template': {
                 'files': 'bundle.min.js',
-                'tpl': '<script src="%" async="true" />'
+                'tpl': '<script src="%s" async="true" />'
             }
         });
         compare('07.html', stream, done);

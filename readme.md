@@ -1,4 +1,4 @@
-# gulp-html-replace [![NPM version][npm-image]][npm-url]
+# gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
 
 Replace build blocks in HTML with links to combined/compressed scripts or styles.
 
@@ -121,3 +121,5 @@ Result:
 
 [npm-url]: https://npmjs.org/package/gulp-html-replace
 [npm-image]: https://badge.fury.io/js/gulp-html-replace.png
+[travis-url]: https://travis-ci.org/VFK/gulp-html-replace
+[travis-image]: https://travis-ci.org/VFK/gulp-html-replace.png?branch=master

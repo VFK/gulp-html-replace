@@ -1,4 +1,4 @@
-# gulp-html-replace
+# gulp-html-replace [![NPM version][npm-image]][npm-url]
 
 Replace build blocks in HTML with links to combined/compressed scripts or styles.
 
@@ -118,3 +118,6 @@ Result:
     <script src="js/bundle.min.js"></script>
     .....
 ```
+
+[npm-url]: https://npmjs.org/package/gulp-html-replace
+[npm-image]: https://badge.fury.io/js/gulp-html-replace.png

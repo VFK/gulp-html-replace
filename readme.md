@@ -1,10 +1,10 @@
 # gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
 
-> Replace build blocks in HTML with links to combined/compressed scripts or styles.
+> Replace build blocks in HTML. Like useref but done right.
 
 ## Upgrading from 0.x to 1.x
-Version 1.0 introduces streaming support, less confusing API, new option *keepUnused* and some breaking changes.
-But don't worry, you won't be needed to change your code, it's just a bit different syntax.
+Version 1.0 introduces streaming support, less confusing API, new option *keepUnused* and full code overhaul.
+It also introduces some breaking changes but don't worry, you won't be needed to change your code, it's just a bit different syntax.
 * If you used single task like this: `htmlreplace('js', 'script.js')` just change it to `htmlreplace({js: 'script.js'})`
 * If you used single task with template: `htmlreplace('js', 'script.js', '<script="%s">')` change it to `htmlreplace({js: {src: 'script.js', tpl: '<script="%s">'})`
 * `files` renamed to `src`, see previous example. Rename if needed.

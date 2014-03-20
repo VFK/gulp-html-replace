@@ -21,12 +21,12 @@
         "node": ">= 0.9"
     },
     "dependencies": {
-        "map-stream": "~0.1.0",
-        "gulp-util": "~2.2.13"
+        "through2": "^0.4.1"
     },
     "devDependencies": {
-        "should": "~3.1.2",
-        "mocha": "~1.17.1"
+        "mocha": "^1.18.2",
+        "gulp-util": "^2.2.14",
+        "event-stream": "^3.1.0"
     },
     "license": "MIT"
 }

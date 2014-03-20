@@ -1,102 +1,105 @@
 # gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
 
-Replace build blocks in HTML with links to combined/compressed scripts or styles.
+> Replace build blocks in HTML with links to combined/compressed scripts or styles.
+
+## Upgrading from 0.x to 1.x
+Version 1.0 introduces streaming support, less confusing API, new option *keepUnused* and some breaking changes.
+But don't worry, you won't be needed to change your code, it's just a bit different syntax.
+* If you used single task like this: `htmlreplace('js', 'script.js')` just change it to `htmlreplace({js: 'script.js'})`
+* If you used single task with template: `htmlreplace('js', 'script.js', '<script="%s">')` change it to `htmlreplace({js: {src: 'script.js', tpl: '<script="%s">'})`
+* `files` renamed to `src`, see previous example. Rename if needed.
+
+That should be enough for you code to continue to work with the new version.
 
 ## Usage
-
-Install `gulp-html-replace` as a development dependency:
+Install:
 ```shell
 npm install --save-dev gulp-html-replace
 ```
 
-Blocks in your HTML file should look like this:
+Put some blocks in your HTML file:
 ```html
 <!-- build:<name> -->
-...
+Everything here will be replaced
 <!-- endbuild -->
 ```
-**name** is the replacement task name.
+`name` is the name of the block. Could consist of letters, digits, underscore ( **_** ) and hyphen ( **-** ) symbols.
 
-Syntax looks like this:
+## API
+### htmlreplace(tasks, keepUnused = false)
+
+#### tasks
+Type: `Object`
+
+`{task-name: options}`
+
+* **task-name** - The name of the block in your HTML.
+* **options** - `String|Array|Object` The replacement. See examples below.
+
+###### Simple example:
 ```javascript
-// single task name replacement
-htmlreplace('js', 'scripts/bundle.min.js')
+// Options is a single string
+htmlreplace({js: 'js/main.js'})
 
-// single task with multiple files
-htmlreplace('css', ['normalize.css', 'main.css'])
+// Options is an array of strings
+htmlreplace({js: ['js/monster.js', 'js/hero.js']})
+```
+>If your options strings ends with `.js` or `.css` they will be replaced by correct script/style tags, so you don't need to specify a template like in the example below.
 
-// multiple tasks
+###### Advanced example:
+```javascript
+// Options is an object
 htmlreplace({
-    'javascripts': 'bundle.js',
-    'styles': ['style.css', 'new.css']
+  js: {
+    src: 'img/avatar.png',
+    tpl: '<img src="%s" align="left">'
+  }
 })
 ```
+* **src** - `String|Array` Same thing as in simple example.
+* **tpl** - `String` Template string. Uses [util.format()](http://nodejs.org/api/util.html#util_util_format_format) internally.
 
-Correct tags will be determined automatically based on file extensions.
-Currently supported `js` and `css`.
-Blocks with orphaned task names will be removed.
+> So, in the above example `%s` will be replaced with `img/avatar.png` producing `<img src="img/avatar.png" align="left">` as a result.
 
-If you don't like how the result looks, you can change the template:
-```javascript
-// single task with custom template
-htmlreplace('js', 'min.js', '<link href="%s" media="all" />')
+#### keepUnused
+* Type: `Boolean`
+* Default: `false`
 
-// single task with multiple files and the custom template
-htmlreplace('css', ['one.css', 'two.css'], '<script src="%s" async="true"/>')
-
-// multiple tasks with custom templates
-htmlreplace({
-    'css': {
-        'files': 'style.min.css',
-        'tpl': '<link href="%s" rel="stylesheet">'
-    },
-    'js': {
-        'files': ['user.js', 'admin.js'],
-        'tpl': '<script src="%s" async="true"/>'
-    }
-})
-
-// you can insert text too
-htmlreplace('lorem', 'Lorem ipsum dolor sit amet', '%s')
-```
-
-**%s** will be replaced with whatever you provide.
-For more info on formatting, please refer to [util.format()](http://nodejs.org/api/util.html#util_util_format_format) documentation.
+Whether to keep blocks with unused names or remove them.
 
 ## Example
-
 index.html:
 
 ```html
 <!DOCTYPE html>
 <html>
     <head>
-    .....
-    <!-- build:styles -->
+
+    <!-- build:css -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <!-- endbuild -->
-    .....
+
     </head>
     <body>
-    .....
+
     <!-- build:js -->
     <script src="js/player.js"></script>
     <script src="js/monster.js"></script>
     <script src="js/world.js"></script>
     <!-- endbuild -->
-    .....
 ```
 
 gulpfile.js:
 
 ```javascript
+var gulp = require('gulp');
 var htmlreplace = require('gulp-html-replace');
 
 gulp.task('default', function() {
   gulp.src('index.html')
     .pipe(htmlreplace({
-        'styles': 'styles.min.css',
+        'css': 'styles.min.css',
         'js': 'js/bundle.min.js'
     }))
     .pipe(gulp.dest('build/'));
@@ -109,14 +112,13 @@ Result:
 <!DOCTYPE html>
 <html>
     <head>
-    .....
+
     <link rel="stylesheet" href="styles.min.css">
-    .....
+
     </head>
     <body>
-    .....
+
     <script src="js/bundle.min.js"></script>
-    .....
 ```
 
 [npm-url]: https://npmjs.org/package/gulp-html-replace

@@ -48,4 +48,12 @@ describe('Buffer mode', function () {
         var stream = plugin();
         compare(new Buffer(fixture), new Buffer(expected), stream, done);
     });
+
+    it('should work with inline html', function (done) {
+        var fixture = '<!DOCTYPE html><head><!-- build:css --><link rel="stylesheet" href="_index.prefix.css"><!-- endbuild --></head>';
+        var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="css/combined.css"></head>';
+
+        var stream = plugin({css: 'css/combined.css'});
+        compare(new Buffer(fixture), new Buffer(expected), stream, done);
+    });
 });

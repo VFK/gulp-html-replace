@@ -53,4 +53,12 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
+    it('should work with inline html', function (done) {
+        var fixture = ['<!DOCTYPE html><head><!-- build:css --><link rel="stylesheet" href="_index.prefix.css"><!-- endbuild --></head>'];
+        var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="css/combined.css"></head>';
+
+        var stream = plugin({css: 'css/combined.css'});
+        compare(es.readArray(fixture), expected, stream, done);
+    });
+
 });

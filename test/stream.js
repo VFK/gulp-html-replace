@@ -17,7 +17,7 @@ function compare(fixture, expected, stream, done){
         assert(file.isStream());
 
         file.contents.pipe(es.wait(function (err, data) {
-            assert.equal(data, expected);
+            assert.equal(data.toString(), expected.toString());
             done();
         }));
     });

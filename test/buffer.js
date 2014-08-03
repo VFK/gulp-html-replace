@@ -27,7 +27,11 @@ describe('Buffer mode', function () {
         var stream = plugin({
             css: 'css/combined.css',
             js_files: ['js/one.js', 'js/two.js?ts=123'],
-            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            images: {
+                src: 'img/avatar.png',
+                tpl: '<img src="%s" alt="Avatar"/>'
+            }
         });
 
         compare(fixture, expected, stream, done);

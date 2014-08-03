@@ -65,4 +65,28 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
+    it('should keep "\\n" linefeed', function (done) {
+        var fixture = ['<hello>\n<world>'];
+        var expected = '<hello>\n<world>';
+
+        var stream = plugin();
+        compare(es.readArray(fixture), expected, stream, done);
+    });
+
+    it('should keep "\\r\\n" linefeed', function (done) {
+        var fixture = ['<hello>\r\n<world>'];
+        var expected = '<hello>\r\n<world>';
+
+        var stream = plugin();
+        compare(es.readArray(fixture), expected, stream, done);
+    });
+
+    it('should keep "\\r" linefeed', function (done) {
+        var fixture = ['<hello>\r<world>'];
+        var expected = '<hello>\r<world>';
+
+        var stream = plugin();
+        compare(es.readArray(fixture), expected, stream, done);
+    });
+
 });

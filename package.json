@@ -15,7 +15,8 @@
     },
     "main": "./lib/index.js",
     "scripts": {
-        "test": "mocha --reporter spec"
+        "test": "mocha -R spec",
+        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
     },
     "engines": {
         "node": ">= 0.9"
@@ -24,9 +25,10 @@
         "through2": "^0.5.1"
     },
     "devDependencies": {
-        "mocha": "^1.21.3",
+        "event-stream": "^3.1.7",
         "gulp-util": "^3.0.0",
-        "event-stream": "^3.1.7"
+        "istanbul": "^0.3.0",
+        "mocha": "^1.21.3"
     },
     "license": "MIT"
 }

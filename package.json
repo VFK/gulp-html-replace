@@ -3,7 +3,9 @@
     "version": "1.1.0",
     "description": "Replace build blocks in HTML. Like useref but done right.",
     "keywords": [
-        "gulpplugin"
+        "gulpplugin",
+        "html",
+        "replace"
     ],
     "repository": {
         "type": "git",
@@ -15,14 +17,14 @@
     },
     "main": "./lib/index.js",
     "scripts": {
-        "test": "mocha -R spec",
-        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
+        "test": "mocha --reporter spec",
+        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec"
     },
     "engines": {
         "node": ">= 0.9"
     },
     "dependencies": {
-        "through2": "^0.5.1"
+        "through2": "^0.6.1"
     },
     "devDependencies": {
         "event-stream": "^3.1.7",

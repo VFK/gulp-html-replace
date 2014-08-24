@@ -7,7 +7,7 @@ var gutil = require('gulp-util');
 var assert = require('assert');
 var es = require('event-stream');
 
-function compare(fixture, expected, stream, done){
+function compare(fixture, expected, stream, done) {
     var fakeFile = new gutil.File({
         contents: fixture
     });
@@ -65,28 +65,31 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
-    it('should keep "\\n" linefeed', function (done) {
-        var fixture = ['<hello>\n<world>'];
-        var expected = '<hello>\n<world>';
+    describe('Linefeed', function () {
 
-        var stream = plugin();
-        compare(es.readArray(fixture), expected, stream, done);
-    });
+        it('should keep "\\n" linefeed', function (done) {
+            var fixture = ['<hello>\n<world>'];
+            var expected = '<hello>\n<world>';
 
-    it('should keep "\\r\\n" linefeed', function (done) {
-        var fixture = ['<hello>\r\n<world>'];
-        var expected = '<hello>\r\n<world>';
+            var stream = plugin();
+            compare(es.readArray(fixture), expected, stream, done);
+        });
 
-        var stream = plugin();
-        compare(es.readArray(fixture), expected, stream, done);
-    });
+        it('should keep "\\r\\n" linefeed', function (done) {
+            var fixture = ['<hello>\r\n<world>'];
+            var expected = '<hello>\r\n<world>';
 
-    it('should keep "\\r" linefeed', function (done) {
-        var fixture = ['<hello>\r<world>'];
-        var expected = '<hello>\r<world>';
+            var stream = plugin();
+            compare(es.readArray(fixture), expected, stream, done);
+        });
 
-        var stream = plugin();
-        compare(es.readArray(fixture), expected, stream, done);
+        it('should keep "\\r" linefeed', function (done) {
+            var fixture = ['<hello>\r<world>'];
+            var expected = '<hello>\r<world>';
+
+            var stream = plugin();
+            compare(es.readArray(fixture), expected, stream, done);
+        });
     });
 
 });

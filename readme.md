@@ -1,7 +1,7 @@
-# gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
+# gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 > Replace build blocks in HTML. Like useref but done right.
-
+ 
 
 ### Table of Contents
 
@@ -152,3 +152,5 @@ No action required, old syntax will still work, but the second one is future-pro
 [npm-image]: https://badge.fury.io/js/gulp-html-replace.png
 [travis-url]: https://travis-ci.org/VFK/gulp-html-replace
 [travis-image]: https://travis-ci.org/VFK/gulp-html-replace.png?branch=master
+[coveralls-image]: https://coveralls.io/repos/VFK/gulp-html-replace/badge.png?branch=master
+[coveralls-url]: https://coveralls.io/r/VFK/gulp-html-replace?branch=master

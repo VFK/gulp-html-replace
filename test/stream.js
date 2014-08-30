@@ -31,11 +31,23 @@ describe('Stream mode', function () {
         var stream = plugin({
             css: 'css/combined.css',
             js_files: ['js/one.js', 'js/two.js?ts=123'],
-            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            images: {
-                src: 'img/avatar.png',
-                tpl: '<img src="%s" alt="Avatar"/>'
-            }
+            js_files_tpl: {
+              src: 'js/with_tpl.js',
+              tpl: '<script src="%s"></script>'
+            },
+            js_files_tpl_multiple: {
+              src: ['js/with_tpl.js', 'js/with_tpl_2.js'],
+              tpl: '<script src="%s"></script>'
+            },
+            js_files_tpl_2vars: {
+              src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js']],
+              tpl: '<script data-main="%s" src="%s"></script>'
+            },
+            js_files_tpl_2vars_multiple: {
+              src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
+              tpl: '<script data-main="%s" src="%s"></script>'
+            },
+            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
         });
 
         compare(fixture, expected, stream, done);

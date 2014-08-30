@@ -2,14 +2,14 @@
 
 > Replace build blocks in HTML. Like useref but done right.
 
-## Upgrading from 0.x to 1.x
-Version 1.0 introduces streaming support, less confusing API, new option *keepUnused* and full code overhaul.
-It also introduces some breaking changes but don't worry, you won't be needed to change your code, it's just a bit different syntax.
-* If you used single task like this: `htmlreplace('js', 'script.js')` just change it to `htmlreplace({js: 'script.js'})`
-* If you used single task with template: `htmlreplace('js', 'script.js', '<script="%s">')` change it to `htmlreplace({js: {src: 'script.js', tpl: '<script="%s">'})`
-* `files` renamed to `src`, see previous example. Rename if needed.
 
-That should be enough for you code to continue to work with the new version.
+### Table of Contents
+
+- [Usage](#usage)
+- [API](#api)
+- [Example](#example)
+- [Upgrade](#upgrade)
+
 
 ## Usage
 Install:
@@ -26,15 +26,15 @@ Everything here will be replaced
 `name` is the name of the block. Could consist of letters, digits, underscore ( **_** ) and hyphen ( **-** ) symbols.
 
 ## API
-### htmlreplace(tasks, keepUnused = false)
+### htmlreplace(tasks, options)
 
 #### tasks
 Type: `Object`
 
-`{task-name: options}`
+`{task-name: replacement}`
 
 * **task-name** - The name of the block in your HTML.
-* **options** - `String|Array|Object` The replacement. See examples below.
+* **replacement** - `String|Array|Object` The replacement. See examples below.
 
 ###### Simple example:
 ```javascript
@@ -52,20 +52,30 @@ htmlreplace({js: ['js/monster.js', 'js/hero.js']})
 htmlreplace({
   js: {
     src: 'img/avatar.png',
-    tpl: '<img src="%s" align="left">'
+    tpl: '<img src="%s" align="left" />'
+  }
+})
+
+// Multiple tag replacement
+htmlreplace({
+  js: {
+    src: [['data-main.js', 'require-src.js']],
+    tpl: '<script data-main="%s" src="%s"></script>'
   }
 })
 ```
 * **src** - `String|Array` Same thing as in simple example.
 * **tpl** - `String` Template string. Uses [util.format()](http://nodejs.org/api/util.html#util_util_format_format) internally.
 
-> So, in the above example `%s` will be replaced with `img/avatar.png` producing `<img src="img/avatar.png" align="left">` as a result.
+> In the first example `%s` will be replaced with `img/avatar.png` producing `<img src="img/avatar.png" align="left">` as the result.
 
-#### keepUnused
-* Type: `Boolean`
-* Default: `false`
+> In the second example `data-main="%s"` and `src="%s"` will be replaced with `data-main.js` and `require-src.js` accordingly producing `<script data-main="data-main.js" src="require-src.js"></script>` as the result
 
-Whether to keep blocks with unused names or remove them.
+#### options
+Type: `object`
+
+- {Boolean} keepUnassigned - Whether to keep blocks with unused names or remove them.
+- {Boolean} keepBlockTags - Whether to keep `<!-- build -->` and `<!-- endbuild -->` blocks or remove them.
 
 ## Example
 index.html:
@@ -120,6 +130,21 @@ Result:
 
     <script src="js/bundle.min.js"></script>
 ```
+
+## Upgrade
+
+### From 0.x to 1.x
+>This version introduces streaming support, less confusing API, new option *keepUnused* and full code overhaul.
+It also introduces some breaking changes but don't worry, you won't be needed to change your code, it's just a bit different syntax.
+* If you used single task like this: `htmlreplace('js', 'script.js')` just change it to `htmlreplace({js: 'script.js'})`
+* If you used single task with template: `htmlreplace('js', 'script.js', '<script="%s">')` change it to `htmlreplace({js: {src: 'script.js', tpl: '<script="%s">'})`
+* `files` renamed to `src`, see previous example. Rename if needed.
+
+>That should be enough for you code to continue to work with the new version.
+
+### From 1.1.x to 1.2.x
+>This version switches to the new way of specifying options. Before it was `htmlreplace(tasks, keepUnassigned = false)`, now it's `htmlreplace(tasks, {keepUnassigned: false})`.
+No action required, old syntax will still work, but the second one is future-proof.
 
 [npm-url]: https://npmjs.org/package/gulp-html-replace
 [npm-image]: https://badge.fury.io/js/gulp-html-replace.png

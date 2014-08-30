@@ -18,6 +18,7 @@
     "main": "./lib/index.js",
     "scripts": {
         "test": "mocha --reporter spec",
+        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
         "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
     },
     "engines": {

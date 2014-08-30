@@ -74,6 +74,8 @@ htmlreplace({
 #### options
 Type: `object`
 
+All `false` by default.
+
 - {Boolean} keepUnassigned - Whether to keep blocks with unused names or remove them.
 - {Boolean} keepBlockTags - Whether to keep `<!-- build -->` and `<!-- endbuild -->` blocks or remove them.
 

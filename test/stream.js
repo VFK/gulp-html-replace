@@ -49,6 +49,45 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
+    describe('Options', function () {
+
+        describe('keepUnassigned', function () {
+            it('Should keep empty blocks', function (done) {
+                var fixture = ['<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>'];
+                var expected = '<html>\nSome text\n</html>';
+
+                var stream = plugin({}, {keepUnassigned: true});
+                compare(es.readArray(fixture), expected, stream, done);
+            });
+
+            it('Should remove empty blocks', function (done) {
+                var fixture = ['<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>'];
+                var expected = '<html>\n</html>';
+
+                var stream = plugin();
+                compare(es.readArray(fixture), expected, stream, done);
+            });
+        });
+
+        describe('keepBlockTags', function () {
+            it('Should keep placeholder tags', function (done) {
+                var fixture = ['<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>'];
+                var expected = '<html>\n<!-- build:js -->\n<!-- endbuild -->\n</html>';
+
+                var stream = plugin({}, {keepBlockTags: true});
+                compare(es.readArray(fixture), expected, stream, done);
+            });
+
+            it('Should remove placeholder tags', function (done) {
+                var fixture = ['<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>'];
+                var expected = '<html>\n</html>';
+
+                var stream = plugin();
+                compare(es.readArray(fixture), expected, stream, done);
+            });
+        });
+    });
+
     describe('Linefeed', function () {
 
         it('should keep "\\n" linefeed', function (done) {

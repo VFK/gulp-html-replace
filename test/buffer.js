@@ -45,6 +45,45 @@ describe('Buffer mode', function () {
         compare(new Buffer(fixture), new Buffer(expected), stream, done);
     });
 
+    describe('Options', function () {
+
+        describe('keepUnassigned', function () {
+            it('Should keep empty blocks', function (done) {
+                var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\nSome text\n</html>';
+
+                var stream = plugin({}, {keepUnassigned: true});
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+
+            it('Should remove empty blocks', function (done) {
+                var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\n</html>';
+
+                var stream = plugin();
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+        });
+
+        describe('keepBlockTags', function () {
+            it('Should keep placeholder tags', function (done) {
+                var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\n<!-- build:js -->\n<!-- endbuild -->\n</html>';
+
+                var stream = plugin({}, {keepBlockTags: true});
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+
+            it('Should remove placeholder tags', function (done) {
+                var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\n</html>';
+
+                var stream = plugin();
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+        });
+    });
+
     describe('Linefeed', function () {
 
         it('should keep "\\n" linefeed', function (done) {
@@ -73,7 +112,7 @@ describe('Buffer mode', function () {
     });
 
     describe('Legacy versions', function () {
-        it('[version <1.2] should keep empty blocks (keepUnused = true)', function (done) {
+        it('[version <1.2] should keep empty blocks (keepUnassigned = true)', function (done) {
             var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
             var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
 
@@ -81,7 +120,7 @@ describe('Buffer mode', function () {
             compare(new Buffer(fixture), new Buffer(expected), stream, done);
         });
 
-        it('[version <1.2] should remove empty blocks (keepUnused = false)', function (done) {
+        it('[version <1.2] should remove empty blocks (keepUnassigned = false)', function (done) {
             var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
             var expected = '<html>\n</html>';
 

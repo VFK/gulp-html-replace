@@ -18,7 +18,7 @@
     "main": "./lib/index.js",
     "scripts": {
         "test": "mocha --reporter spec",
-        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec"
+        "coverage": "istanbul cover node_modules/mocha/bin/_mocha --"
     },
     "engines": {
         "node": ">= 0.9"

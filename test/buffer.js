@@ -37,22 +37,6 @@ describe('Buffer mode', function () {
         compare(fixture, expected, stream, done);
     });
 
-    it('should keep empty blocks (keepUnused = true)', function (done) {
-        var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
-        var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
-
-        var stream = plugin({}, true);
-        compare(new Buffer(fixture), new Buffer(expected), stream, done);
-    });
-
-    it('should remove empty blocks (keepUnused = false)', function (done) {
-        var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
-        var expected = '<html>\n</html>';
-
-        var stream = plugin();
-        compare(new Buffer(fixture), new Buffer(expected), stream, done);
-    });
-
     it('should work with inline html', function (done) {
         var fixture = '<!DOCTYPE html><head><!-- build:css --><link rel="stylesheet" href="_index.prefix.css"><!-- endbuild --></head>';
         var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="css/combined.css"></head>';
@@ -82,6 +66,24 @@ describe('Buffer mode', function () {
         it('should keep "\\r" linefeed', function (done) {
             var fixture = '<hello>\r<world>';
             var expected = '<hello>\r<world>';
+
+            var stream = plugin();
+            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+        });
+    });
+
+    describe('Legacy versions', function () {
+        it('[version <1.2] should keep empty blocks (keepUnused = true)', function (done) {
+            var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
+            var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
+
+            var stream = plugin({}, true);
+            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+        });
+
+        it('[version <1.2] should remove empty blocks (keepUnused = false)', function (done) {
+            var fixture = '<html>\n<!-- build:js -->\nThis should be removed if "keepUnassigned" is false\n<!-- endbuild -->\n</html>';
+            var expected = '<html>\n</html>';
 
             var stream = plugin();
             compare(new Buffer(fixture), new Buffer(expected), stream, done);

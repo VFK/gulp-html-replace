@@ -145,8 +145,8 @@ Result:
 No action required, old syntax will still work, but it is advisable to switch to the new syntax.
 
 [npm-url]: https://npmjs.org/package/gulp-html-replace
-[npm-image]: https://badge.fury.io/js/gulp-html-replace.png
+[npm-image]: http://img.shields.io/npm/v/gulp-html-replace.svg
 [travis-url]: https://travis-ci.org/VFK/gulp-html-replace
-[travis-image]: https://travis-ci.org/VFK/gulp-html-replace.png?branch=master
-[coveralls-image]: https://coveralls.io/repos/VFK/gulp-html-replace/badge.png?branch=master
+[travis-image]: http://img.shields.io/travis/VFK/gulp-html-replace.svg
 [coveralls-url]: https://coveralls.io/r/VFK/gulp-html-replace?branch=master
+[coveralls-image]: http://img.shields.io/coveralls/VFK/gulp-html-replace.svg

@@ -11,6 +11,10 @@ function compare(fixture, expected, stream, done) {
     var fakeFile = new gutil.File({
         contents: fixture
     });
+
+    fakeFile.base = path.join(fakeFile.cwd, 'pages');
+    fakeFile.path = path.join(fakeFile.cwd, 'pages/index.html');
+
     stream.write(fakeFile);
 
     stream.once('data', function (file) {
@@ -32,20 +36,20 @@ describe('Stream mode', function () {
             css: 'css/combined.css',
             js_files: ['js/one.js', 'js/two.js?ts=123'],
             js_files_tpl: {
-              src: 'js/with_tpl.js',
-              tpl: '<script src="%s"></script>'
+                src: 'js/with_tpl.js',
+                tpl: '<script src="%s"></script>'
             },
             js_files_tpl_multiple: {
-              src: ['js/with_tpl.js', 'js/with_tpl_2.js'],
-              tpl: '<script src="%s"></script>'
+                src: ['js/with_tpl.js', 'js/with_tpl_2.js'],
+                tpl: '<script src="%s"></script>'
             },
             js_files_tpl_2vars: {
-              src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js']],
-              tpl: '<script data-main="%s" src="%s"></script>'
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js']],
+                tpl: '<script data-main="%s" src="%s"></script>'
             },
             js_files_tpl_2vars_multiple: {
-              src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
-              tpl: '<script data-main="%s" src="%s"></script>'
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
+                tpl: '<script data-main="%s" src="%s"></script>'
             },
             'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
         });
@@ -95,6 +99,16 @@ describe('Stream mode', function () {
                 var expected = '<html>\n</html>';
 
                 var stream = plugin();
+                compare(es.readArray(fixture), expected, stream, done);
+            });
+        });
+
+        describe('resolvePaths', function () {
+            it('Should resolve relative paths', function (done) {
+                var fixture = ['<html>\n<!-- build:js -->\n<script src="file.js"></script>\n<!-- endbuild -->\n</html>'];
+                var expected = '<html>\n<script src="../lib/script.js"></script>\n</html>';
+
+                var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
                 compare(es.readArray(fixture), expected, stream, done);
             });
         });

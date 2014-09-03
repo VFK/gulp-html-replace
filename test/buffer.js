@@ -10,6 +10,10 @@ function compare(fixture, expected, stream, done) {
     var fakeFile = new gutil.File({
         contents: fixture
     });
+
+    fakeFile.base = path.join(fakeFile.cwd, 'pages');
+    fakeFile.path = path.join(fakeFile.cwd, 'pages/index.html');
+
     stream.write(fakeFile);
 
     stream.once('data', function (file) {
@@ -91,6 +95,16 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n</html>';
 
                 var stream = plugin();
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+        });
+
+        describe('resolvePaths', function () {
+            it('Should resolve relative paths', function (done) {
+                var fixture = '<html>\n<!-- build:js -->\n<script src="file.js"></script>\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\n<script src="../lib/script.js"></script>\n</html>';
+
+                var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
                 compare(new Buffer(fixture), new Buffer(expected), stream, done);
             });
         });

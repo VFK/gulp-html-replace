@@ -29,9 +29,7 @@ Everything here will be replaced
 ### htmlreplace(tasks, options)
 
 #### tasks
-Type: `Object`
-
-`{task-name: replacement}`
+Type: `Object` `{task-name: replacement}`
 
 * **task-name** - The name of the block in your HTML.
 * **replacement** - `String|Array|Object` The replacement. See examples below.
@@ -69,15 +67,16 @@ htmlreplace({
 
 > In the first example `%s` will be replaced with `img/avatar.png` producing `<img src="img/avatar.png" align="left">` as the result.
 
-> In the second example `data-main="%s"` and `src="%s"` will be replaced with `data-main.js` and `require-src.js` accordingly producing `<script data-main="data-main.js" src="require-src.js"></script>` as the result
+> In the second example `data-main="%s"` and `src="%s"` will be replaced with `data-main.js` and `require-src.js` accordingly, producing `<script data-main="data-main.js" src="require-src.js"></script>` as the result
 
 #### options
 Type: `object`
 
 All `false` by default.
 
-- {Boolean} keepUnassigned - Whether to keep blocks with unused names or remove them.
-- {Boolean} keepBlockTags - Whether to keep `<!-- build -->` and `<!-- endbuild -->` blocks or remove them.
+- {Boolean} **keepUnassigned** - Whether to keep blocks with unused names or remove them.
+- {Boolean} **keepBlockTags** - Whether to keep `<!-- build -->` and `<!-- endbuild -->` blocks or remove them.
+- {Boolean} **resolvePaths** - Try to resolve *relative* paths. For example if your `cwd` is ``/``, your html file is `/page/index.html` and you set replacement as `lib/file.js` the result path in that html will be `../lib/file.js`
 
 ## Example
 index.html:
@@ -137,16 +136,13 @@ Result:
 
 ### From 0.x to 1.x
 >This version introduces streaming support, less confusing API, new option *keepUnused* and full code overhaul.
-It also introduces some breaking changes but don't worry, you won't be needed to change your code, it's just a bit different syntax.
 * If you used single task like this: `htmlreplace('js', 'script.js')` just change it to `htmlreplace({js: 'script.js'})`
 * If you used single task with template: `htmlreplace('js', 'script.js', '<script="%s">')` change it to `htmlreplace({js: {src: 'script.js', tpl: '<script="%s">'})`
 * `files` renamed to `src`, see previous example. Rename if needed.
 
->That should be enough for you code to continue to work with the new version.
-
 ### From 1.1.x to 1.2.x
->This version switches to the new way of specifying options. Before it was `htmlreplace(tasks, keepUnassigned = false)`, now it's `htmlreplace(tasks, {keepUnassigned: false})`.
-No action required, old syntax will still work, but the second one is future-proof.
+>This version switches to the new way of specifying options which is more future-proof. Before it was `htmlreplace(tasks, keepUnassigned = false)`, now it's `htmlreplace(tasks, {keepUnassigned: false})`.
+No action required, old syntax will still work, but it is advisable to switch to the new syntax.
 
 [npm-url]: https://npmjs.org/package/gulp-html-replace
 [npm-image]: https://badge.fury.io/js/gulp-html-replace.png

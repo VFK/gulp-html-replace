@@ -18,8 +18,8 @@
     "main": "./lib/index.js",
     "scripts": {
         "test": "mocha --reporter spec",
-        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
-        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R dot",
+        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
     },
     "engines": {
         "node": ">= 0.9"
@@ -32,8 +32,7 @@
         "event-stream": "^3.1.7",
         "gulp-util": "^3.0.0",
         "istanbul": "^0.3.0",
-        "mocha": "^1.21.3",
-        "mocha-lcov-reporter": "0.0.1"
+        "mocha": "^1.21.3"
     },
     "license": "MIT"
 }

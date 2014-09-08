@@ -75,7 +75,7 @@ Type: `object`
 All `false` by default.
 
 - {Boolean} **keepUnassigned** - Whether to keep blocks with unused names or remove them.
-- {Boolean} **keepBlockTags** - Whether to keep `<!-- build -->` and `<!-- endbuild -->` blocks or remove them.
+- {Boolean} **keepBlockTags** - Whether to keep `<!-- build -->` and `<!-- endbuild -->` comments or remove them.
 - {Boolean} **resolvePaths** - Try to resolve *relative* paths. For example if your `cwd` is ``/``, your html file is `/page/index.html` and you set replacement as `lib/file.js` the result path in that html will be `../lib/file.js`
 
 ## Example

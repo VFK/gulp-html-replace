@@ -69,6 +69,36 @@ htmlreplace({
 
 > In the second example `data-main="%s"` and `src="%s"` will be replaced with `data-main.js` and `require-src.js` accordingly, producing `<script data-main="data-main.js" src="require-src.js"></script>` as the result
 
+###### Extended replacements:
+```javascript
+// Replacement based on the file being processed
+htmlreplace({
+  js: {
+    src: null,
+    tpl: '<script src="%f".js></script>'
+  }
+})
+// Extended replacement combined with standard replacement
+htmlreplace({
+  js: {
+    src: 'dir',
+    tpl: '<script src="%s/%f".js"></script>'
+  }
+})
+
+```
+* **src** - `null|String|Array` Same as examples above but null if there are no standard replacements in the template.
+* **tpl** - `String` Template string. Extended replacements do not use `util.format()` and are performed before standard replacements.
+
+> In the first example `src` is null because there are no standard replacements. `%f` is replaced with the name (without extension) of the file currently being processed. If the file being processed is `xyzzy.html` the result is `<script src="xyzzy.js"></script>`.
+
+> In the second example `src` has been set to the string `'dir'`. Extended replacements are processed first, replacing `%f` with `xyzzy`, then `%s` will be replaced with `dir` resulting in `<script src="dir/xyzzy.js"></script>`.
+
+Valid extended replacements are:
+
+* **%f** - this will be replaced with the filename, without an extension.
+* **%e** - this will be replaced with the extension including the `.` character.
+
 #### options
 Type: `object`
 

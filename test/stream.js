@@ -13,7 +13,7 @@ function compare(fixture, expected, stream, done) {
     });
 
     fakeFile.base = path.join(fakeFile.cwd, 'pages');
-    fakeFile.path = path.join(fakeFile.cwd, 'pages/index.html');
+    fakeFile.path = path.join(fakeFile.cwd, path.join('pages', 'index.html'));
 
     stream.write(fakeFile);
 
@@ -126,7 +126,7 @@ describe('Stream mode', function () {
         describe('resolvePaths', function () {
             it('Should resolve relative paths', function (done) {
                 var fixture = ['<html>\n<!-- build:js -->\n<script src="file.js"></script>\n<!-- endbuild -->\n</html>'];
-                var expected = '<html>\n<script src="../lib/script.js"></script>\n</html>';
+                var expected = '<html>\n<script src="' + path.join('..', 'lib', 'script.js') + '"></script>\n</html>';
 
                 var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
                 compare(es.readArray(fixture), expected, stream, done);

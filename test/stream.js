@@ -85,6 +85,14 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
+    it('should work with path style task-name`s', function (done) {
+        var fixture = ['<!DOCTYPE html><head><!-- build:path/to/index.css --><link rel="stylesheet" href="_index.prefix.css"><!-- endbuild --></head>'];
+        var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="path/to/index-324e23e23.css"></head>';
+
+        var stream = plugin({'path/to/index.css': 'path/to/index-324e23e23.css'});
+        compare(es.readArray(fixture), expected, stream, done);
+    });
+
     describe('Options', function () {
 
         describe('keepUnassigned', function () {

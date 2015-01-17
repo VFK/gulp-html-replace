@@ -130,30 +130,26 @@ describe('Buffer mode', function () {
         });
     });
 
-    describe('Linefeed', function () {
+    describe('Line endings', function () {
+        it('should work with LF line endings', function (done) {
+            var fixture = fs.readFileSync(path.join('test', 'line_endings', 'lf.html'));
+            var expected = fs.readFileSync(path.join('test', 'line_endings', 'expected_lf.html'));
 
-        it('should keep "\\n" linefeed', function (done) {
-            var fixture = '<hello>\n<world>';
-            var expected = '<hello>\n<world>';
-
-            var stream = plugin();
-            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            var stream = plugin({
+                'js-legacy-min': 'js-legacy-min.js',
+                'js-angular-min': 'js-angular-min.js'
+            });
+            compare(fixture, expected, stream, done);
         });
 
-        it('should keep "\\r\\n" linefeed', function (done) {
-            var fixture = '<hello>\r\n<world>';
-            var expected = '<hello>\r\n<world>';
+        it('should work with mixed line endings', function (done) {
+            var fixture = fs.readFileSync(path.join('test', 'line_endings', 'mixed.html'));
+            var expected = fs.readFileSync(path.join('test', 'line_endings', 'expected_mixed.html'));
 
-            var stream = plugin();
-            compare(new Buffer(fixture), new Buffer(expected), stream, done);
-        });
-
-        it('should keep "\\r" linefeed', function (done) {
-            var fixture = '<hello>\r<world>';
-            var expected = '<hello>\r<world>';
-
-            var stream = plugin();
-            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            var stream = plugin({
+                'main': 'mixed.js'
+            });
+            compare(fixture, expected, stream, done);
         });
     });
 

@@ -159,16 +159,16 @@ describe('Stream mode', function () {
 
     describe('Legacy versions', function () {
         it('[version <1.2] should keep empty blocks (keepUnused = true)', function (done) {
-            var fixture = ['<html>\n', '<!-- build:js -->\n', 'This should be removed if "keepUnassigned" is false\n', '<!-- endbuild -->\n', '</html>'];
-            var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
+            var fixture = ['<html>\n<!-- build:js -->\nThis should not be removed\n<!-- endbuild -->\n</html>'];
+            var expected = '<html>\nThis should not be removed\n</html>';
 
             var stream = plugin({}, true);
             compare(es.readArray(fixture), expected, stream, done);
         });
 
         it('[version <1.2] should remove empty blocks (keepUnused = false)', function (done) {
-            var fixture = ['<html>\n', '<!-- build:js -->\n', 'This should be removed if "keepUnassigned" is false\n', '<!-- endbuild -->\n', '</html>'];
-            var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
+            var fixture = ['<html>\n<!-- build:js -->\nThis should be removed\n<!-- endbuild -->\n</html>'];
+            var expected = '<html>\n</html>';
 
             var stream = plugin();
             compare(es.readArray(fixture), expected, stream, done);

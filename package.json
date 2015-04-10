@@ -7,6 +7,9 @@
         "html",
         "replace"
     ],
+    "files": [
+      "lib"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/VFK/gulp-html-replace.git"

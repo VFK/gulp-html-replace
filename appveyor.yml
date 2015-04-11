@@ -1,7 +1,3 @@
-# Fix line endings on Windows
-init:
-  - git config --global core.autocrlf true
-
 environment:
   matrix:
   # node.js

@@ -1,0 +1,23 @@
+# Fix line endings on Windows
+init:
+  - git config --global core.autocrlf true
+
+environment:
+  matrix:
+  # node.js
+  - nodejs_version: "0.10"
+  - nodejs_version: "0.11"
+  - nodejs_version: "0.12"
+  # io.js
+  - nodejs_version: "1.0"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+
+build: off

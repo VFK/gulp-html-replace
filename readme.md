@@ -1,4 +1,4 @@
-# gulp-html-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# gulp-html-replace [![NPM version][npm-image]][npm-url] [![Travis][travis-image]][travis-url] [![AppVeyor][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 > Replace build blocks in HTML. Like useref but done right.
  
@@ -178,5 +178,7 @@ No action required, old syntax will still work, but it is advisable to switch to
 [npm-image]: http://img.shields.io/npm/v/gulp-html-replace.svg
 [travis-url]: https://travis-ci.org/VFK/gulp-html-replace
 [travis-image]: http://img.shields.io/travis/VFK/gulp-html-replace.svg
+[appveyor-url]: https://ci.appveyor.com/project/VFK/gulp-html-replace
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/66kwbnis5a1gwp6d?svg=true
 [coveralls-url]: https://coveralls.io/r/VFK/gulp-html-replace?branch=master
 [coveralls-image]: http://img.shields.io/coveralls/VFK/gulp-html-replace.svg

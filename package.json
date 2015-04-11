@@ -1,45 +1,48 @@
 {
-    "name": "gulp-html-replace",
-    "version": "1.4.4",
-    "description": "Replace build blocks in HTML. Like useref but done right.",
-    "keywords": [
-        "gulpplugin",
-        "html",
-        "replace"
-    ],
-    "files": [
-      "lib"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/VFK/gulp-html-replace.git"
-    },
-    "author": {
-        "name": "Vladimir Kucherenko",
-        "email": "kvsoftware@gmail.com"
-    },
-    "contributors": [
-        {"name": "Bruce MacNaughton",
-         "email": "bmacnaughton@gmail.com"}
-    ],
-    "main": "./lib/index.js",
-    "scripts": {
-        "test": "mocha --reporter spec",
-        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R dot",
-        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
-    },
-    "engines": {
-        "node": ">= 0.9"
-    },
-    "dependencies": {
-        "through2": "^0.6.1"
-    },
-    "devDependencies": {
-        "coveralls": "^2.11.1",
-        "event-stream": "^3.2.2",
-        "gulp-util": "^3.0.3",
-        "istanbul": "^0.3.5",
-        "mocha": "^2.1.0"
-    },
-    "license": "MIT"
+  "name": "gulp-html-replace",
+  "version": "1.4.4",
+  "description": "Replace build blocks in HTML. Like useref but done right.",
+  "keywords": [
+    "gulpplugin",
+    "html",
+    "replace"
+  ],
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VFK/gulp-html-replace.git"
+  },
+  "author": {
+    "name": "Vladimir Kucherenko",
+    "email": "kvsoftware@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Bruce MacNaughton",
+      "email": "bmacnaughton@gmail.com"
+    }
+  ],
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "mocha --reporter spec",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R dot",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "engines": {
+    "node": ">= 0.9"
+  },
+  "dependencies": {
+    "slash": "^1.0.0",
+    "through2": "^0.6.1"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "event-stream": "^3.2.2",
+    "gulp-util": "^3.0.3",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.1.0"
+  },
+  "license": "MIT"
 }

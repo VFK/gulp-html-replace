@@ -122,7 +122,7 @@ describe('Buffer mode', function () {
         describe('resolvePaths', function () {
             it('Should resolve relative paths', function (done) {
                 var fixture = '<html>\n<!-- build:js -->\n<script src="file.js"></script>\n<!-- endbuild -->\n</html>';
-                var expected = '<html>\n<script src="' + path.join('..', 'lib', 'script.js') + '"></script>\n</html>';
+                var expected = '<html>\n<script src="../lib/script.js"></script>\n</html>';
 
                 var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
                 compare(new Buffer(fixture), new Buffer(expected), stream, done);

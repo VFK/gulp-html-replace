@@ -102,7 +102,7 @@ describe('Buffer mode', function () {
         });
 
         describe('keepBlockTags', function () {
-            it('Should keep placeholder tags', function (done) {
+            it('Should keep placeholder tags without arguments', function (done) {
                 var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
                 var expected = '<html>\n<!-- build:js -->\n<!-- endbuild -->\n</html>';
 
@@ -110,11 +110,27 @@ describe('Buffer mode', function () {
                 compare(new Buffer(fixture), new Buffer(expected), stream, done);
             });
 
-            it('Should remove placeholder tags', function (done) {
+            it('Should keep placeholder tags with arguments', function (done) {
+                var fixture = '<html>\n<!-- build:lorem -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\n<!-- build:lorem -->\nipsum\n<!-- endbuild -->\n</html>';
+
+                var stream = plugin({lorem: 'ipsum'}, {keepBlockTags: true});
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+
+            it('Should remove placeholder tags without arguments', function (done) {
                 var fixture = '<html>\n<!-- build:js -->\nSome text\n<!-- endbuild -->\n</html>';
                 var expected = '<html>\n</html>';
 
                 var stream = plugin();
+                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            });
+
+            it('Should remove placeholder tags with arguments', function (done) {
+                var fixture = '<html>\n<!-- build:lorem -->\nSome text\n<!-- endbuild -->\n</html>';
+                var expected = '<html>\nipsum\n</html>';
+
+                var stream = plugin({lorem: 'ipsum'});
                 compare(new Buffer(fixture), new Buffer(expected), stream, done);
             });
         });
@@ -127,29 +143,6 @@ describe('Buffer mode', function () {
                 var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
                 compare(new Buffer(fixture), new Buffer(expected), stream, done);
             });
-        });
-    });
-
-    describe('Line endings', function () {
-        it('should work with LF line endings', function (done) {
-            var fixture = fs.readFileSync(path.join('test', 'line_endings', 'lf.html'));
-            var expected = fs.readFileSync(path.join('test', 'line_endings', 'expected_lf.html'));
-
-            var stream = plugin({
-                'js-legacy-min': 'js-legacy-min.js',
-                'js-angular-min': 'js-angular-min.js'
-            });
-            compare(fixture, expected, stream, done);
-        });
-
-        it('should work with mixed line endings', function (done) {
-            var fixture = fs.readFileSync(path.join('test', 'line_endings', 'mixed.html'));
-            var expected = fs.readFileSync(path.join('test', 'line_endings', 'expected_mixed.html'));
-
-            var stream = plugin({
-                'main': 'mixed.js'
-            });
-            compare(fixture, expected, stream, done);
         });
     });
 

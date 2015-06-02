@@ -35,14 +35,14 @@
   },
   "dependencies": {
     "slash": "^1.0.0",
-    "through2": "^0.6.1"
+    "through2": "^0.6.5"
   },
   "devDependencies": {
-    "coveralls": "^2.11.1",
-    "event-stream": "^3.2.2",
-    "gulp-util": "^3.0.3",
-    "istanbul": "^0.3.5",
-    "mocha": "^2.1.0"
+    "coveralls": "^2.11.2",
+    "event-stream": "^3.3.1",
+    "gulp-util": "^3.0.5",
+    "istanbul": "^0.3.14",
+    "mocha": "^2.2.5"
   },
   "license": "MIT"
 }

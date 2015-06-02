@@ -85,6 +85,13 @@ describe('Stream mode', function () {
         compare(es.readArray(fixture), expected, stream, done);
     });
 
+    it('should not fail if there are no build tags at all', function (done) {
+        var fixture = ['<!DOCTYPE html><head><link rel="stylesheet" href="_index.prefix.css"></head>'];
+
+        var stream = plugin({css: 'css/combined.css'});
+        compare(es.readArray(fixture), fixture[0], stream, done);
+    });
+
     describe('Options', function () {
 
         describe('keepUnassigned', function () {

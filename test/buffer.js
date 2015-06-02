@@ -81,6 +81,13 @@ describe('Buffer mode', function () {
         compare(new Buffer(fixture), new Buffer(expected), stream, done);
     });
 
+    it('should not fail if there are no build tags at all', function (done) {
+        var fixture = '<!DOCTYPE html><head><link rel="stylesheet" href="_index.prefix.css"></head>';
+
+        var stream = plugin({css: 'css/combined.css'});
+        compare(new Buffer(fixture), new Buffer(fixture), stream, done);
+    });
+
     describe('Options', function () {
 
         describe('keepUnassigned', function () {

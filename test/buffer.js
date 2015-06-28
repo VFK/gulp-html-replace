@@ -1,32 +1,29 @@
 'use strict';
 
-var plugin = require('../lib/index');
+var plugin = require('..');
 var fs = require('fs');
 var path = require('path');
-var gutil = require('gulp-util');
+var File = require('vinyl');
 var assert = require('assert');
 
 function compare(fixture, expected, stream, done) {
-    var fakeFile = new gutil.File({
-        contents: fixture
-    });
-
-    fakeFile.base = path.join(fakeFile.cwd, 'pages');
-    fakeFile.path = path.join(fakeFile.cwd, path.join('pages', 'index.html'));
-
-    stream.write(fakeFile);
-
-    stream.once('data', function (file) {
+    stream
+    .once('data', function (file) {
         assert(file.isBuffer());
-        assert.equal(String(file.contents), String(expected));
+        assert.strictEqual(String(file.contents), expected);
         done();
-    });
+    })
+    .end(new File({
+        base: path.resolve('pages'),
+        path: path.join('pages', 'index.html'),
+        contents: fixture
+    }));
 }
 
 describe('Buffer mode', function () {
     it('should replace blocks', function (done) {
         var fixture = fs.readFileSync(path.join('test', 'fixture.html'));
-        var expected = fs.readFileSync(path.join('test', 'expected.html'));
+        var expected = fs.readFileSync(path.join('test', 'expected.html'), 'utf8');
 
         var stream = plugin({
             css: 'css/combined.css',
@@ -78,14 +75,14 @@ describe('Buffer mode', function () {
         var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="css/combined.css"></head>';
 
         var stream = plugin({css: 'css/combined.css'});
-        compare(new Buffer(fixture), new Buffer(expected), stream, done);
+        compare(new Buffer(fixture), expected, stream, done);
     });
 
     it('should not fail if there are no build tags at all', function (done) {
         var fixture = '<!DOCTYPE html><head><link rel="stylesheet" href="_index.prefix.css"></head>';
 
         var stream = plugin({css: 'css/combined.css'});
-        compare(new Buffer(fixture), new Buffer(fixture), stream, done);
+        compare(new Buffer(fixture), fixture, stream, done);
     });
 
     describe('Options', function () {
@@ -96,7 +93,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\nSome text\n</html>';
 
                 var stream = plugin({}, {keepUnassigned: true});
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
 
             it('Should remove empty blocks', function (done) {
@@ -104,7 +101,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n</html>';
 
                 var stream = plugin();
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
         });
 
@@ -114,7 +111,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n<!-- build:js -->\n<!-- endbuild -->\n</html>';
 
                 var stream = plugin({}, {keepBlockTags: true});
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
 
             it('Should keep placeholder tags with arguments', function (done) {
@@ -122,7 +119,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n<!-- build:lorem -->\nipsum\n<!-- endbuild -->\n</html>';
 
                 var stream = plugin({lorem: 'ipsum'}, {keepBlockTags: true});
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
 
             it('Should remove placeholder tags without arguments', function (done) {
@@ -130,7 +127,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n</html>';
 
                 var stream = plugin();
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
 
             it('Should remove placeholder tags with arguments', function (done) {
@@ -138,7 +135,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\nipsum\n</html>';
 
                 var stream = plugin({lorem: 'ipsum'});
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
         });
 
@@ -148,7 +145,7 @@ describe('Buffer mode', function () {
                 var expected = '<html>\n<script src="../lib/script.js"></script>\n</html>';
 
                 var stream = plugin({js: 'lib/script.js'}, {resolvePaths: true});
-                compare(new Buffer(fixture), new Buffer(expected), stream, done);
+                compare(new Buffer(fixture), expected, stream, done);
             });
         });
     });
@@ -159,7 +156,7 @@ describe('Buffer mode', function () {
             var expected = '<html>\nThis should be removed if "keepUnassigned" is false\n</html>';
 
             var stream = plugin({}, true);
-            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            compare(new Buffer(fixture), expected, stream, done);
         });
 
         it('[version <1.2] should remove empty blocks (keepUnassigned = false)', function (done) {
@@ -167,7 +164,7 @@ describe('Buffer mode', function () {
             var expected = '<html>\n</html>';
 
             var stream = plugin();
-            compare(new Buffer(fixture), new Buffer(expected), stream, done);
+            compare(new Buffer(fixture), expected, stream, done);
         });
     });
 

@@ -26,23 +26,26 @@
   ],
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha --reporter spec",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R dot",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "mocha",
+    "coverage": "istanbul cover _mocha -- -R dot",
+    "coveralls": "istanbul cover _mocha && istanbul-coveralls"
   },
   "engines": {
     "node": ">= 0.9"
   },
   "dependencies": {
-    "slash": "^1.0.0",
-    "through2": "^0.6.5"
+    "object-assign": "^3.0.0",
+    "readable-stream": "^2.0.1",
+    "slash": "^1.0.0"
   },
   "devDependencies": {
-    "coveralls": "^2.11.2",
-    "event-stream": "^3.3.1",
+    "concat-stream": "^1.5.0",
+    "from2-string": "^1.0.2",
     "gulp-util": "^3.0.5",
     "istanbul": "^0.3.14",
-    "mocha": "^2.2.5"
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "^2.2.5",
+    "vinyl": "^0.5.0"
   },
   "license": "MIT"
 }

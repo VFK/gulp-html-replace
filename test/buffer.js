@@ -137,6 +137,14 @@ describe('Buffer mode', function () {
                 var stream = plugin({lorem: 'ipsum'});
                 compare(new Buffer(fixture), expected, stream, done);
             });
+
+            it('Should keep indentation', function (done) {
+                var fixture = '<html>\n  <!-- build:js -->\n  Some text\n  <!-- endbuild -->\n</html>';
+                var expected = '<html>\n  <!-- build:js -->\n  <!-- endbuild -->\n</html>';
+
+                var stream = plugin({}, {keepBlockTags: true});
+                compare(new Buffer(fixture), expected, stream, done);
+            });
         });
 
         describe('resolvePaths', function () {

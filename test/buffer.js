@@ -27,7 +27,7 @@ describe('Buffer mode', function () {
 
         var stream = plugin({
             css: 'css/combined.css',
-            js_files: ['js/one.js', 'js/two.js?ts=123'],
+            js_files: ['js/one.js', 'js/two.js?ts=123', 'js/three.js?v=v1.5.3-1-g91cd575'],
             js_files_tpl: {
                 src: 'js/with_tpl.js',
                 tpl: '<script src="%s"></script>'

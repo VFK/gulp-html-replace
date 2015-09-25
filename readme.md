@@ -108,6 +108,20 @@ All `false` by default.
 - {Boolean} **keepBlockTags** - Whether to keep `<!-- build -->` and `<!-- endbuild -->` comments or remove them.
 - {Boolean} **resolvePaths** - Try to resolve *relative* paths. For example if your `cwd` is ``/``, your html file is `/page/index.html` and you set replacement as `lib/file.js` the result path in that html will be `../lib/file.js`
 
+###### Options example:
+```javascript
+htmlreplace({
+  js: {
+    src: null,
+    tpl: '<script src="%f".js></script>'
+  }
+}, {
+  keepUnassigned: false,
+  keepBlockTags: false,
+  resolvePaths: false
+})
+```
+
 ## Example
 index.html:
 

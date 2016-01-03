@@ -37,7 +37,9 @@
     "clone": "^1.0.2",
     "object-assign": "^4.0.1",
     "readable-stream": "^2.0.4",
-    "slash": "^1.0.0"
+    "slash": "^1.0.0",
+    "stream-reduce": "^1.0.3",
+    "vinyl-buffer": "^1.0.0"
   },
   "devDependencies": {
     "concat-stream": "^1.5.1",

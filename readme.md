@@ -32,7 +32,7 @@ Everything here will be replaced
 Type: `Object` `{task-name: replacement}`
 
 * **task-name** - The name of the block in your HTML.
-* **replacement** - `String|Array|Object` The replacement. See examples below.
+* **replacement** - `String|Array|stream.Readable|Object` The replacement. See examples below.
 
 ###### Simple example:
 ```javascript
@@ -62,7 +62,7 @@ htmlreplace({
   }
 })
 ```
-* **src** - `String|Array` Same thing as in simple example.
+* **src** - `String|Array|stream.Readable` Same thing as in simple example.
 * **tpl** - `String` Template string. Uses [util.format()](http://nodejs.org/api/util.html#util_util_format_format) internally.
 
 > In the first example `%s` will be replaced with `img/avatar.png` producing `<img src="img/avatar.png" align="left">` as the result.
@@ -87,7 +87,7 @@ htmlreplace({
 })
 
 ```
-* **src** - `null|String|Array` Same as examples above but null if there are no standard replacements in the template.
+* **src** - `null|String|Array|stream.Readable` Same as examples above but null if there are no standard replacements in the template.
 * **tpl** - `String` Template string. Extended replacements do not use `util.format()` and are performed before standard replacements.
 
 > In the first example `src` is null because there are no standard replacements. `%f` is replaced with the name (without extension) of the file currently being processed. If the file being processed is `xyzzy.html` the result is `<script src="xyzzy.js"></script>`.
@@ -98,6 +98,19 @@ Valid extended replacements are:
 
 * **%f** - this will be replaced with the filename, without an extension.
 * **%e** - this will be replaced with the extension including the `.` character.
+
+###### Stream replacements:
+Everywhere a string replacement can be given, a stream of vinyl is also accepted. The content of each file will be treated as UTF-8 text and used for replacement. If the stream produces more than a file the behavior is the same as when an array is given.
+```javascript
+// Replacement is a stream
+htmlreplace({
+  cssInline: {
+    src: gulp.src('style/main.scss').pipe(sass()),
+    tpl: '<style>%s</style>'
+  }
+})
+
+```
 
 #### options
 Type: `object`

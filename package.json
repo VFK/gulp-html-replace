@@ -34,6 +34,7 @@
     "node": ">= 0.9"
   },
   "dependencies": {
+    "bluebird": "^3.1.1",
     "clone": "^1.0.2",
     "object-assign": "^4.0.1",
     "readable-stream": "^2.0.4",

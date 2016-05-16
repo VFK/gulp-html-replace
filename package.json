@@ -48,7 +48,8 @@
     "istanbul": "^0.4.0",
     "istanbul-coveralls": "^1.0.3",
     "mocha": "^2.3.4",
-    "vinyl": "^1.1.0"
+    "vinyl": "^1.1.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "license": "MIT"
 }

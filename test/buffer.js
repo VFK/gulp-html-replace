@@ -5,6 +5,8 @@ var fs = require('fs');
 var path = require('path');
 var File = require('vinyl');
 var assert = require('assert');
+var stringToStream = require('from2-string');
+var source = require('vinyl-source-stream');
 
 function compare(fixture, expected, stream, done) {
     stream
@@ -64,7 +66,11 @@ describe('Buffer mode', function () {
                 src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
                 tpl: '<script data-src="%f.data" data-main="%s" src="%s"></script>'
             },
-            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'stream-simple': stringToStream('Stream simple replacement').pipe(source('fake-vinyl.txt')),
+            'stream-advanced': {
+                src:  stringToStream('Stream advanced replacement').pipe(source('fake-vinyl.txt'))
+            }
         });
 
         compare(fixture, expected, stream, done);

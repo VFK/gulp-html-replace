@@ -70,6 +70,9 @@ describe('Buffer mode', function () {
             'stream-simple': stringToStream('Stream simple replacement').pipe(source('fake-vinyl.txt')),
             'stream-advanced': {
                 src:  stringToStream('Stream advanced replacement').pipe(source('fake-vinyl.txt'))
+            },
+            'stream-special': {
+                src: stringToStream('Stream $$ special replacement pattern').pipe(source('fake-vinyl.txt'))
             }
         });
 

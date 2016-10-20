@@ -85,6 +85,64 @@ describe('Stream mode', function () {
         compare(fixture, expected, stream, done);
     });
 
+    it('should replace blocks with custom tag', function (done) {
+        var fixture = fs.createReadStream(path.join('test', 'fixture-custom-tag.html'));
+        var expected = fs.readFileSync(path.join('test', 'expected.html'), 'utf8');
+
+        var stream = plugin({
+            css: 'css/combined.css',
+            js_files: ['js/one.js', 'js/two.js?ts=123', 'js/three.js?v=v1.5.3-1-g91cd575'],
+            js_files_tpl: {
+                src: 'js/with_tpl.js',
+                tpl: '<script src="%s"></script>'
+            },
+            js_files_tpl_multiple: {
+                src: ['js/with_tpl.js', 'js/with_tpl_2.js'],
+                tpl: '<script src="%s"></script>'
+            },
+            js_files_tpl_2vars: {
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js']],
+                tpl: '<script data-main="%s" src="%s"></script>'
+            },
+            js_files_tpl_2vars_multiple: {
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
+                tpl: '<script data-main="%s" src="%s"></script>'
+            },
+            js_files_x_tpl: {
+                src: null,
+                tpl: '<script src="js/%f.min.js"></script>'
+            },
+            js_files_x_tpl_src: {
+                src: 'js',
+                tpl: '<script src="%s/%f.min.js"></script>'
+            },
+            js_files_x_tpl_multiple: {
+                src: ['js/with_tpl.js', 'js/with_tpl_2.js'],
+                tpl: '<script data-src="%f.data" src="%s"></script>'
+            },
+            js_files_x_tpl_2vars: {
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js']],
+                tpl: '<script data-src="%f%e" data-main="%s" src="%s"></script>'
+            },
+            js_files_x_tpl_2vars_multiple: {
+                src: [['js/with_tpl_2vars1.js', 'js/with_tpl_2vars2.js'], ['js/with_tpl_2vars1_2.js', 'js/with_tpl_2vars2_2.js']],
+                tpl: '<script data-src="%f.data" data-main="%s" src="%s"></script>'
+            },
+            'lorem-ipsum': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'stream-simple': stringToStream('Stream simple replacement').pipe(source('fake-vinyl.txt')),
+            'stream-advanced': {
+                src:  stringToStream('Stream advanced replacement').pipe(source('fake-vinyl.txt'))
+            },
+            'stream-special': {
+                src: stringToStream('Stream $$ special replacement pattern').pipe(source('fake-vinyl.txt'))
+            }
+        }, {
+            tagName: 'custom'
+        });
+
+        compare(fixture, expected, stream, done);
+    });
+
     it('should work with inline html', function (done) {
         var fixture = '<!DOCTYPE html><head><!-- build:css --><link rel="stylesheet" href="_index.prefix.css"><!-- endbuild --></head>';
         var expected = '<!DOCTYPE html><head><link rel="stylesheet" href="css/combined.css"></head>';

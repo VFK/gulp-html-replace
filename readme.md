@@ -98,6 +98,7 @@ Valid extended replacements are:
 
 * **%f** - this will be replaced with the filename, without an extension.
 * **%e** - this will be replaced with the extension including the `.` character.
+* **%d** - this will be replaced with the directory name.
 
 ###### Stream replacements:
 Everywhere a string replacement can be given, a stream of vinyl is also accepted. The content of each file will be treated as UTF-8 text and used for replacement. If the stream produces more than a file the behavior is the same as when an array is given.

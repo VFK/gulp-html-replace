@@ -135,7 +135,7 @@ htmlreplace({
 })
 ```
 
-## Example
+## Example are as follows:
 index.html:
 
 ```html
